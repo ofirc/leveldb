@@ -3,9 +3,17 @@ cmake_minimum_required(VERSION 3.0.2 FATAL_ERROR)
 project(leveldb CXX)    
 set(CMAKE_DEBUG_POSTFIX "d")
 
-set(Boost_USE_STATIC_LIBS ON)
+
+# set(Boost_USE_STATIC_LIBS ON)
+set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREAD ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
+
+if(${Boost_USE_STATIC_LIBS})
+	add_definitions(-DBOOST_ALL_NO_LIB)
+else()
+	add_definitions(-DBOOST_ALL_DYN_LINK)
+endif()
 
 find_package(Boost COMPONENTS 
     date_time
